@@ -68,11 +68,11 @@ router.post('/posts/image', verifyToken, upload.single('image'), async (req, res
     res.status(200).json({ success: true, imageUrl });
   } catch (error) {
     console.error('❌ Error al subir imagen para publicación:', error);
-    res.status(500).json({ error: 'Error al procesar la imagen: ' + error.message });
-  }
+    res.status(500).json({ error: 'Error al procesar la imagen: ' + error.message });  }
 });
 
-router.get('/', (req, res ) => res.send('<h1>Hablamelo</h1>'));
+// Comentada para evitar conflicto con la ruta raíz de index.js
+// router.get('/', (req, res ) => res.send('<h1>Hablamelo</h1>'));
 
 router.get('/protected', (req,res)=> {
 
