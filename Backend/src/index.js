@@ -19,8 +19,9 @@ app.use(cors({
   origin: [
     'http://localhost:5173', 
     'http://localhost:3000',
-    // Aquí agregaremos la URL de Netlify después
-    process.env.FRONTEND_URL || 'https://tu-app.netlify.app'
+    // Agrega aquí tu URL de Netlify cuando la tengas
+    process.env.FRONTEND_URL,
+    'https://tu-app.netlify.app' // Reemplaza con tu URL real de Netlify
   ], 
   credentials: true 
 }));
