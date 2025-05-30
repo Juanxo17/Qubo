@@ -35,7 +35,15 @@ app.get('/', (req, res) => {
   res.json({ message: 'Backend funcionando correctamente!' });
 });
 
-app.use('/', router)
+// Usar el router para otras rutas
+app.use('/api', router)
 
+// Para Vercel, exportar la app
+export default app;
 
-app.listen(PORT, console.log ('Server is running on port: '+ PORT));
+// Para desarrollo local
+if (process.env.NODE_ENV !== 'production') {
+  app.listen(PORT, () => {
+    console.log('Server is running on port: ' + PORT);
+  });
+}
