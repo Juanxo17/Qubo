@@ -2,10 +2,7 @@ import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import {promisify} from 'util'
 import  AccountModel  from '../models/AccountModel.js';
-import connectDB from '../config/db.js';
 import Account from '../models/AccountModel.js';
-
-const db = connectDB();
 
 export const register = async (req,res) =>{
     try{

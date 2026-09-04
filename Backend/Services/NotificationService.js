@@ -12,7 +12,7 @@ const __dirname = path.dirname(__filename);
 const serviceAccountPath = path.join(__dirname, '../firebase/firebase-service-account.json');
 
 // Inicializar la aplicación Firebase Admin para notificaciones
-let firebaseAdmin;
+let firebaseAdmin = null;
 try {
   // Intenta obtener la aplicación existente
   firebaseAdmin = getApp('notification-service');
@@ -26,13 +26,12 @@ try {
       databaseURL: "https://qubo-db982-default-rtdb.firebaseio.com" // URL de tu base de datos en tiempo real
     }, 'notification-service');
   } catch (initError) {
-    console.error('Error al inicializar Firebase Admin para notificaciones:', initError);
-    throw initError;
+    console.warn('Firebase Realtime Database no configurado (falta el service account). Las notificaciones en tiempo real se desactivan; las de MongoDB siguen funcionando.');
   }
 }
 
-// Obtener referencia a la base de datos
-const db = getDatabase(firebaseAdmin);
+// Obtener referencia a la base de datos (null si Firebase no está configurado)
+const db = firebaseAdmin ? getDatabase(firebaseAdmin) : null;
 
 /**
  * Crear una nueva notificación
@@ -64,20 +63,21 @@ export const createNotification = async (userId, notificationData) => {
     await notificacion.save();
     console.log("Notificación guardada en MongoDB con ID:", notificacion._id);
     
-    // 2. Enviar a Firebase Realtime Database para entrega en tiempo real
-    const notificationRef = db.ref(`notifications/${userId}/${notificacion._id.toString()}`);
-    await notificationRef.set({
-      id: notificacion._id.toString(),
-      type: notificationData.type,
-      senderProfileId: notificationData.senderProfileId,
-      targetId: notificationData.targetId,
-      targetType: notificationData.targetType,
-      message: notificationData.message,
-      read: false,
-      createdAt: Date.now()
-    });
-    
-    console.log("Notificación enviada a Firebase Realtime Database");
+    // 2. Enviar a Firebase Realtime Database para entrega en tiempo real (si está configurado)
+    if (db) {
+      const notificationRef = db.ref(`notifications/${userId}/${notificacion._id.toString()}`);
+      await notificationRef.set({
+        id: notificacion._id.toString(),
+        type: notificationData.type,
+        senderProfileId: notificationData.senderProfileId,
+        targetId: notificationData.targetId,
+        targetType: notificationData.targetType,
+        message: notificationData.message,
+        read: false,
+        createdAt: Date.now()
+      });
+      console.log("Notificación enviada a Firebase Realtime Database");
+    }
     return notificacion;
   } catch (error) {
     console.error('Error detallado al crear notificación:', error);
@@ -104,9 +104,11 @@ export const markNotificationAsRead = async (userId, notificationId) => {
       throw new Error('Notificación no encontrada');
     }
     
-    // 2. Actualizar en Firebase
-    const notificationRef = db.ref(`notifications/${userId}/${notificationId}`);
-    await notificationRef.update({ read: true });
+    // 2. Actualizar en Firebase (si está configurado)
+    if (db) {
+      const notificationRef = db.ref(`notifications/${userId}/${notificationId}`);
+      await notificationRef.update({ read: true });
+    }
     
     return notificacion;
   } catch (error) {
@@ -130,9 +132,11 @@ export const deleteNotification = async (userId, notificationId) => {
       throw new Error('Notificación no encontrada');
     }
     
-    // 2. Eliminar de Firebase
-    const notificationRef = db.ref(`notifications/${userId}/${notificationId}`);
-    await notificationRef.remove();
+    // 2. Eliminar de Firebase (si está configurado)
+    if (db) {
+      const notificationRef = db.ref(`notifications/${userId}/${notificationId}`);
+      await notificationRef.remove();
+    }
     
     return { success: true };
   } catch (error) {

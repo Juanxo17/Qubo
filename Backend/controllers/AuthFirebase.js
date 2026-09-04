@@ -4,6 +4,10 @@ import jwt from 'jsonwebtoken';
 import Account from '../models/AccountModel.js';
 
 export const loginWithFirebase = async (req, res) => {
+  if (!adminAuth) {
+    return res.status(503).json({ error: 'Firebase no configurado en este despliegue.' });
+  }
+
   const { idToken } = req.body;
 
   if (!idToken) {
