@@ -20,7 +20,7 @@ const CreateProfile = () => {
       
       try {
         
-        const res = await fetch(`http://localhost:8080/check-profile`, {
+        const res = await fetch(`http://192.168.56.30:80/api/check-profile`, {
           method: 'GET',
           headers: {
             'Authorization': `Bearer ${token}`

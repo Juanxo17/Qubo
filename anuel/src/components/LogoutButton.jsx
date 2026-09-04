@@ -8,7 +8,7 @@ const LogoutButton = ({ className }) => {
     try {
       
       try {
-        await fetchWithAuth('http://localhost:8080/logout', {
+        await fetchWithAuth('http://192.168.56.30:80/api/logout', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'

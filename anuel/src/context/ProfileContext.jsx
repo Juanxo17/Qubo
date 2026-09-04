@@ -45,7 +45,7 @@ const ProfileProvider = ({ children }) => {
       
       try {
         setIsProfileLoading(true);
-        const res = await fetch('http://localhost:8080/profile/me', {
+        const res = await fetch('http://192.168.56.30:80/api/profile/me', {
           headers: {
             'Authorization': `Bearer ${token}`
           }

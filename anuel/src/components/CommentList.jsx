@@ -200,7 +200,7 @@ const CommentList = ({ postId, onCommentAdded }) => {
   useEffect(() => {
     const fetchCurrentUser = async () => {
       try {
-        const res = await fetchWithAuth('http://localhost:8080/profile/me');
+        const res = await fetchWithAuth('http://192.168.56.30:80/api/profile/me');
         if (res.ok) {
           const data = await res.json();
           setCurrentUserId(data._id);
@@ -227,7 +227,7 @@ const CommentList = ({ postId, onCommentAdded }) => {
         throw new Error('ID de publicación inválido');
       }
       
-      const url = `http://localhost:8080/posts/${postId}/comments?page=${pageNum}&limit=10`;
+      const url = `http://192.168.56.30:80/api/posts/${postId}/comments?page=${pageNum}&limit=10`;
       console.log("URL de la solicitud:", url);
       
       const res = await fetchWithAuth(url);
@@ -285,7 +285,7 @@ const CommentList = ({ postId, onCommentAdded }) => {
   
   const handleEditComment = async (commentId, newContent) => {
     try {
-      const res = await fetchWithAuth(`http://localhost:8080/comments/${commentId}`, {
+      const res = await fetchWithAuth(`http://192.168.56.30:80/api/comments/${commentId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -328,7 +328,7 @@ const CommentList = ({ postId, onCommentAdded }) => {
   
   const handleDeleteComment = async (commentId) => {
     try {
-      const res = await fetchWithAuth(`http://localhost:8080/comments/${commentId}`, {
+      const res = await fetchWithAuth(`http://192.168.56.30:80/api/comments/${commentId}`, {
         method: 'DELETE',
       });
       

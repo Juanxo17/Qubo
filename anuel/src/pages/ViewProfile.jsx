@@ -12,7 +12,7 @@ const ViewProfile = () => {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const checkRes = await fetchWithAuth("http://localhost:8080/check-profile");
+        const checkRes = await fetchWithAuth("http://192.168.56.30:80/api/check-profile");
         const checkData = await checkRes.json();
         
         if (!checkRes.ok) {
@@ -27,7 +27,7 @@ const ViewProfile = () => {
         }
         
         try {
-          const profileRes = await fetchWithAuth("http://localhost:8080/profile/me");
+          const profileRes = await fetchWithAuth("http://192.168.56.30:80/api/profile/me");
           
           if (!profileRes.ok) {
             setError("No se pudo cargar tu perfil");

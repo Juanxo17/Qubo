@@ -13,7 +13,7 @@ const Home = () => {
       if (token && accountId) {
         try {
           
-          const res = await fetch('http://localhost:8080/check-profile', {
+          const res = await fetch('http://192.168.56.30:80/api/check-profile', {
             headers: {
               'Authorization': `Bearer ${token}`
             }

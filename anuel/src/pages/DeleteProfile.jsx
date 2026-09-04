@@ -15,7 +15,7 @@ const DeleteProfile = () => {
     
     const checkProfile = async () => {
       try {
-        const res = await fetchWithAuth('http://localhost:8080/check-profile');
+        const res = await fetchWithAuth('http://192.168.56.30:80/api/check-profile');
         const data = await res.json();
         
         if (!res.ok) {
@@ -32,7 +32,7 @@ const DeleteProfile = () => {
         
         
         try {
-          const profileRes = await fetchWithAuth('http://localhost:8080/profile/me');
+          const profileRes = await fetchWithAuth('http://192.168.56.30:80/api/profile/me');
             if (!profileRes.ok) {
             setError('No se pudieron cargar los datos del perfil');
             setLoading(false);
@@ -83,7 +83,7 @@ const DeleteProfile = () => {
       
       
       const res = await fetchWithAuth(
-        `http://localhost:8080/profile/${profileData.perfilId}`,
+        `http://192.168.56.30:80/api/profile/${profileData.perfilId}`,
         {
           method: 'DELETE'
         }

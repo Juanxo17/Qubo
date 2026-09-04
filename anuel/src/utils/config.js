@@ -1,7 +1,7 @@
 // Configuración global para la aplicación
 
 
-export const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080';
+export const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://192.168.56.30:80/api';
 
 
 export const REQUEST_TIMEOUT = 15000; 

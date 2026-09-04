@@ -33,7 +33,7 @@ const FinalSlide = ({ onBack }) => {
       
       console.log('Enviando datos de perfil:', profileWithAccountId);
       
-      const res = await fetch('http://localhost:8080/profile', {
+      const res = await fetch('http://192.168.56.30:80/api/profile', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

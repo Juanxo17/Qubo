@@ -23,7 +23,7 @@ const EditProfile = () => {
     const fetchProfileData = async () => {
       try {
         
-        const checkRes = await fetchWithAuth('http://localhost:8080/check-profile');
+        const checkRes = await fetchWithAuth('http://192.168.56.30:80/api/check-profile');
         const checkData = await checkRes.json();
         
         if (!checkRes.ok) {
@@ -40,7 +40,7 @@ const EditProfile = () => {
         
         
         
-        const profileRes = await fetchWithAuth('http://localhost:8080/profile/me');        if (!profileRes.ok) {
+        const profileRes = await fetchWithAuth('http://192.168.56.30:80/api/profile/me');        if (!profileRes.ok) {
           setError('No se pudo cargar el perfil. Intenta más tarde.');
           setLoading(false);
           return;
@@ -76,7 +76,7 @@ const EditProfile = () => {
     try {
       
       
-      const res = await fetchWithAuth('http://localhost:8080/profile/update', {
+      const res = await fetchWithAuth('http://192.168.56.30:80/api/profile/update', {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json'

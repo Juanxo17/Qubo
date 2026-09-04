@@ -54,12 +54,12 @@ const PostList = ({ profileId, newPost }) => {
       }
       
       
-      let url = 'http://localhost:8080/posts';
+      let url = 'http://192.168.56.30:80/api/posts';
       if (profileId) {
         if (profileId === 'me') {
-          url = 'http://localhost:8080/posts/my';
+          url = 'http://192.168.56.30:80/api/posts/my';
         } else {
-          url = `http://localhost:8080/profile/${profileId}/posts`;
+          url = `http://192.168.56.30:80/api/profile/${profileId}/posts`;
         }
       }
       
@@ -148,7 +148,7 @@ const PostList = ({ profileId, newPost }) => {
       );
       
       
-      const res = await fetchWithAuth(`http://localhost:8080/posts/${postId}/like`, {
+      const res = await fetchWithAuth(`http://192.168.56.30:80/api/posts/${postId}/like`, {
         method: 'POST'
       });
       
@@ -194,7 +194,7 @@ const PostList = ({ profileId, newPost }) => {
         return;
       }
       
-      const res = await fetchWithAuth(`http://localhost:8080/posts/${postId}`, {
+      const res = await fetchWithAuth(`http://192.168.56.30:80/api/posts/${postId}`, {
         method: 'DELETE'
       });
       
@@ -255,7 +255,7 @@ const PostList = ({ profileId, newPost }) => {
         return;
       }
       
-      const res = await fetchWithAuth(`http://localhost:8080/posts/${postId}/like`);
+      const res = await fetchWithAuth(`http://192.168.56.30:80/api/posts/${postId}/like`);
       
       if (!res.ok) {
         throw new Error('Error al verificar like');

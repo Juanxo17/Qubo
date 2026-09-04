@@ -43,7 +43,7 @@ const PostEditor = ({ post, show, onHide, onPostUpdated }) => {
         imagenUrl: showImageInput ? imageUrl : ''
       };
       
-      const res = await fetchWithAuth(`http://localhost:8080/posts/${post._id}`, {
+      const res = await fetchWithAuth(`http://192.168.56.30:80/api/posts/${post._id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

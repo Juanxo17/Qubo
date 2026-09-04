@@ -10,8 +10,8 @@ const AuthForm = ({ mode }) => {
     e.preventDefault();
 
     const endpoint = isLogin
-      ? 'http://localhost:8080/login'
-      : 'http://localhost:8080/register';
+      ? 'http://192.168.56.30:80/api/login'
+      : 'http://192.168.56.30:80/api/register';
 
     try {
       const res = await fetch(endpoint, {

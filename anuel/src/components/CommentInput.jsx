@@ -12,7 +12,7 @@ const CommentInput = ({ postId, onCommentAdded }) => {
   useEffect(() => {
     const fetchUserProfile = async () => {
       try {
-        const res = await fetchWithAuth('http://localhost:8080/profile/me');
+        const res = await fetchWithAuth('http://192.168.56.30:80/api/profile/me');
         if (res.ok) {
           const data = await res.json();
           setUserProfile(data);
@@ -39,7 +39,7 @@ const CommentInput = ({ postId, onCommentAdded }) => {
       };
       
       
-      const res = await fetchWithAuth(`http://localhost:8080/posts/${postId}/comments`, {
+      const res = await fetchWithAuth(`http://192.168.56.30:80/api/posts/${postId}/comments`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

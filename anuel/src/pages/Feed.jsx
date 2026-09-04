@@ -16,7 +16,7 @@ const Feed = () => {  const [username, setUsername] = useState('');
       try {
         setProfileLoading(true);
         
-        const res = await fetchWithAuth('http://localhost:8080/profile/me');
+        const res = await fetchWithAuth('http://192.168.56.30:80/api/profile/me');
         
         if (res.ok) {
           const data = await res.json();

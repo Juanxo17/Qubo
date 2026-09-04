@@ -26,7 +26,7 @@ const ProfileWithPosts = () => {
         
         if (!username) {
           
-          profileRes = await fetchWithAuth('http://localhost:8080/profile/me');
+          profileRes = await fetchWithAuth('http://192.168.56.30:80/api/profile/me');
           setIsOwnProfile(true);
         } else {
           
@@ -34,7 +34,7 @@ const ProfileWithPosts = () => {
           
             try {
             
-            const myProfileRes = await fetchWithAuth('http://localhost:8080/profile/me');
+            const myProfileRes = await fetchWithAuth('http://192.168.56.30:80/api/profile/me');
             if (myProfileRes.ok) {
               const myProfileData = await myProfileRes.json();
               
@@ -44,7 +44,7 @@ const ProfileWithPosts = () => {
                 setIsOwnProfile(true);
               } else {
                 
-                const otherProfileRes = await fetchWithAuth(`http://localhost:8080/profile/username/${username}`);
+                const otherProfileRes = await fetchWithAuth(`http://192.168.56.30:80/api/profile/username/${username}`);
                 profileRes = otherProfileRes;
                 setIsOwnProfile(false);
               }
@@ -66,14 +66,14 @@ const ProfileWithPosts = () => {
             try {
               if (data._id) {
                 
-                const followersRes = await fetchWithAuth(`http://localhost:8080/profile/${data._id}/followers`);
+                const followersRes = await fetchWithAuth(`http://192.168.56.30:80/api/profile/${data._id}/followers`);
                 if (followersRes.ok) {
                   const followersData = await followersRes.json();
                   data.seguidores = followersData.metadata.total;
                 }
                 
                 
-                const followingRes = await fetchWithAuth(`http://localhost:8080/profile/${data._id}/following`);
+                const followingRes = await fetchWithAuth(`http://192.168.56.30:80/api/profile/${data._id}/following`);
                 if (followingRes.ok) {
                   const followingData = await followingRes.json();
                   data.siguiendo = followingData.metadata.total;
@@ -112,7 +112,7 @@ const ProfileWithPosts = () => {
             return;
           }
           
-          const res = await fetchWithAuth(`http://localhost:8080/profile/${profileData._id}/follow`);
+          const res = await fetchWithAuth(`http://192.168.56.30:80/api/profile/${profileData._id}/follow`);
           if (res.ok) {
             const data = await res.json();
             setIsFollowing(data.following);
@@ -147,7 +147,7 @@ const ProfileWithPosts = () => {
       }));
       
       
-      const res = await fetchWithAuth(`http://localhost:8080/profile/${profileData._id}/follow`, {
+      const res = await fetchWithAuth(`http://192.168.56.30:80/api/profile/${profileData._id}/follow`, {
         method: 'POST'
       });
       

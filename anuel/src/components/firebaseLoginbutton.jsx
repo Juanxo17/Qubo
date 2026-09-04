@@ -17,7 +17,7 @@ const FirebaseLoginButton = () => {
       const idToken = await result.user.getIdToken();
 
       
-      const res = await fetch('http://localhost:8080/firebase-login', {
+      const res = await fetch('http://192.168.56.30:80/api/firebase-login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
